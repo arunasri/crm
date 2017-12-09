@@ -18,7 +18,8 @@ import cucumber.api.java.en.When;
 
 public class TaskSteps {
 	WebDriver driver;
-	String seleniumGridURL = "http://34.203.236.108:4444/wd/hub";
+	String seleniumGridURL = System.getProperty("SELENIUM_GRID");
+	String baseURL = System.getProperty("WEBSITE_URL");
 
 	@Before
 	public void initDriver() throws MalformedURLException {
@@ -27,7 +28,7 @@ public class TaskSteps {
 		options.addArguments("no-sandbox");
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		driver = new RemoteWebDriver(new URL(seleniumGridURL), capabilities);
-		this.driver.get("https://qacrm.herokuapp.com");
+		this.driver.get(baseURL);
 	}
 
 	@After
