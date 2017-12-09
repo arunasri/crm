@@ -1,9 +1,14 @@
 package org.cucumber.crm.steps;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.cucumber.crm.po.LoginPagePO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -13,10 +18,15 @@ import cucumber.api.java.en.When;
 
 public class TaskSteps {
 	WebDriver driver;
+	String seleniumGridURL = "http://34.203.236.108:4444/wd/hub";
 
 	@Before
-	public void initDriver() {
-		this.driver = new ChromeDriver();
+	public void initDriver() throws MalformedURLException {
+		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("no-sandbox");
+		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		driver = new RemoteWebDriver(new URL(seleniumGridURL), capabilities);
 		this.driver.get("https://qacrm.herokuapp.com");
 	}
 
