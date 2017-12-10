@@ -61,4 +61,17 @@ public class TaskSteps {
 	@Then("^I should see the newly created task$")
 	public void i_should_see_the_newly_created_task() throws Throwable {
 	}
+	
+	@When("^User clicks on Team tab$")
+	public void user_clicks_on_Team_tab()  {
+	    driver.findElement(By.xpath("//a[contains(text(), 'Team')]")).click();
+	}
+
+	@Then("^User should see Aaron Assembler$")
+	public void user_should_see_Aaron_Assembler()  {
+		
+}
+
+	
+	
 }
