@@ -6,6 +6,7 @@ import java.net.URL;
 import org.cucumber.crm.po.LoginPagePO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -23,12 +24,17 @@ public class TaskSteps {
 
 	@Before
 	public void initDriver() throws MalformedURLException {
-		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("no-sandbox");
-		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-		driver = new RemoteWebDriver(new URL(seleniumGridURL), capabilities);
+		if (this.seleniumGridURL == null) {
+			this.driver = new ChromeDriver();
+		} else {
+			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("no-sandbox");
+			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+			this.driver = new RemoteWebDriver(new URL(seleniumGridURL), capabilities);
+		}
 		this.driver.get(baseURL);
+
 	}
 
 	@After
