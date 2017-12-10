@@ -16,6 +16,5 @@ Scenario: Admin user ability add tasks
 @sanity
 Scenario: Admin user ability add Team 
 	Given I logged in as admin user 
-	And User clicks on Team tab 
-	When User create Team 
+	When User clicks on Team tab 
 	Then User should see Aaron Assembler
