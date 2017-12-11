@@ -36,3 +36,15 @@ Scenario: Admin user ability to add Leads
 	Given User should logged in as admin user
 	When User clicks on Leads tab
 	Then User should see the Create Leads link
+	
+@regression4
+Scenario: Admin user ability to add Contacts
+	Given User should logged in as admin user
+	When User clicks on Contacts tab
+	Then User should see the Create Contacts link
+	
+@regression5
+Scenario: Admin user ability to add Opportunities
+	Given User should logged in as admin user
+	When User clicks on Opportunities tab
+	Then User should see the Create Opportunity link

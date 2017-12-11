@@ -103,5 +103,25 @@ public class TaskSteps {
 	public void user_should_see_the_Create_Leads_link() {
 		driver.findElement(By.partialLinkText("Create Lead"));
 	}
+	//Contacts
+	@When("^User clicks on Contacts tab$")
+	public void user_clicks_on_Contacts_tab() {
+		driver.findElement(By.partialLinkText("Contacts")).click();
+	}
+
+	@Then("^User should see the Create Contacts link$")
+	public void user_should_see_the_Create_Contacts_link() {
+		driver.findElement(By.partialLinkText("Create Contact"));
+	}
+	//Opportunities
+	@When("^User clicks on Opportunities tab$")
+	public void user_clicks_on_Opportunities_tab() {
+		driver.findElement(By.partialLinkText("")).click();
+	}
+
+	@Then("^User should see the Create Opportunity link$")
+	public void user_should_see_the_Create_Opportunity_link() {
+		driver.findElement(By.partialLinkText(""));
+	}
 	
 }
