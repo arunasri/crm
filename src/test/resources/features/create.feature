@@ -30,3 +30,9 @@ Scenario: Admin user ability to add Campaigns
 	Given User should logged in as admin user
 	When User clicks on campaigns tab
 	Then User should see the Create Campaigns link
+	
+@regression3
+Scenario: Admin user ability to add Leads
+	Given User should logged in as admin user
+	When User clicks on Leads tab
+	Then User should see the Create Leads link

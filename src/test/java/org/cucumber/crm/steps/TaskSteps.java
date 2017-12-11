@@ -94,6 +94,14 @@ public class TaskSteps {
 		driver.findElement(By.partialLinkText("Create Campaign"));
 	}
 
-	
+	@When("^User clicks on Leads tab$")
+	public void user_clicks_on_Leads_tab() {
+		driver.findElement(By.partialLinkText("Leads")).click();
+	}
+
+	@Then("^User should see the Create Leads link$")
+	public void user_should_see_the_Create_Leads_link() {
+		driver.findElement(By.partialLinkText("Create Lead"));
+	}
 	
 }
