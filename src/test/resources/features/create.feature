@@ -18,7 +18,8 @@ Scenario: Admin user ability add Team
 	Given User should logged in as admin user 
 	When User clicks on Team tab 
 	Then User should see Aaron Assembler
-	
+
+@regression	
 Scenario: Admin user ability to add Accounts
 	Given User should logged in as admin user
 	When User clicks on Accounts tab
