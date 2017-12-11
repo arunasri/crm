@@ -42,8 +42,8 @@ public class TaskSteps {
 		this.driver.quit();
 	}
 
-	@Given("^I logged in as admin user$")
-	public void i_logged_in_as_admin_user() throws Throwable {
+	@Given("^User should logged in as admin user$")
+	public void user_should_logged_in_as_Admin_user() {
 		LoginPagePO loginPO = new LoginPagePO(driver);
 		loginPO.login("george", "george");
 	}
@@ -71,6 +71,18 @@ public class TaskSteps {
 	public void user_should_see_Aaron_Assembler()  {
 		
 }
+
+	@When("^User clicks on Accounts tab$")
+	public void user_clicks_on_Accounts_tab() {
+		driver.findElement(By.partialLinkText("Accounts")).click();
+
+	}
+
+	@Then("^User should see the Create Account link$")
+	public void user_should_see_the_Create_Account_link() {
+		driver.findElement(By.partialLinkText("Create Account"));
+
+	}
 
 	
 	
