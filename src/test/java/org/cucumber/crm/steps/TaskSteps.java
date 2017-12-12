@@ -141,7 +141,7 @@ public class TaskSteps {
 	}
 	@Then("^Verify user is on Create Lead page$")
 	public void verify_user_is_on_create_lead_page() {
-		driver.findElement(By.id("//input[@id = 'lead_first_name']//preceding-sibling::div[contains(text(), 'First name:')]"));
+		//driver.findElement(By.id(""));
 	}
 	
 }
