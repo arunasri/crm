@@ -141,10 +141,7 @@ public class TaskSteps {
 	}
 	@Then("^Verify user is on Create Lead page$")
 	public void verify_user_is_on_create_lead_page() {
-//		WebDriverWait waitUntilLeadPageOpens = new WebDriverWait(driver,30);
-//		   waitUntilLeadPageOpens
-//			.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(text(), 'First name:')]//following-sibling::input"))));
-	   driver.findElement(By.id("//div[contains(text(), 'First name:')]//following-sibling::input"));
+		driver.findElement(By.id("//input[@id = 'lead_first_name']//preceding-sibling::div[contains(text(), 'First name:')]"));
 	}
 	
 }
