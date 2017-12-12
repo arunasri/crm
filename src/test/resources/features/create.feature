@@ -56,5 +56,19 @@ Scenario: Admin user ability to create campaign
 	When User clicks on campaigns tab
 	And User should see the Create Campaigns link
 	Then User clicks on create campaign link
+	Then Verify user is on create campaign page
+#Create leads
+@functional2
+Scenario: Admin user ability to create leads
+	Given User should logged in as admin user
+	When User clicks on Leads tab
+	And User should see the Create Leads link
+	Then User clicks on create Lead link
+	Then Verify user is on Create Lead page
+
+
+
+
+
 	
 	

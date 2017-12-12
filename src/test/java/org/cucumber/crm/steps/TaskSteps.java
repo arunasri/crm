@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -127,6 +129,22 @@ public class TaskSteps {
 	@Then("^User clicks on create campaign link$")
 	public void user_clicks_on_create_campaign_link() {
 	   driver.findElement(By.partialLinkText("Create Campaign")).click();
+	}
+	@Then("^Verify user is on create campaign page$")
+	public void verify_user_is_on_create_campaign_page() {
+	   driver.findElement(By.xpath("//div[contains(text(), 'Name:')]"));
+	}
+	//Create Leads
+	@Then("^User clicks on create Lead link$")
+	public void user_clicks_on_create_lead_link() {
+	   driver.findElement(By.partialLinkText("Create Lead")).click();
+	}
+	@Then("^Verify user is on Create Lead page$")
+	public void verify_user_is_on_create_lead_page() {
+//		WebDriverWait waitUntilLeadPageOpens = new WebDriverWait(driver,30);
+//		   waitUntilLeadPageOpens
+//			.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(text(), 'First name:')]//following-sibling::input"))));
+	   driver.findElement(By.id("//div[contains(text(), 'First name:')]//following-sibling::input"));
 	}
 	
 }
