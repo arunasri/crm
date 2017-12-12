@@ -123,5 +123,10 @@ public class TaskSteps {
 	public void user_should_see_the_Create_Opportunity_link() {
 		driver.findElement(By.partialLinkText(""));
 	}
+	//Create campaigns
+	@Then("^User clicks on create campaign link$")
+	public void user_clicks_on_create_campaign_link() {
+	   driver.findElement(By.partialLinkText("Create Campaign")).click();
+	}
 	
 }
