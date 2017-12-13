@@ -6,12 +6,13 @@ import java.net.URL;
 import org.cucumber.crm.po.LoginPagePO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.asserts.SoftAssert;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -61,19 +62,23 @@ public class LeadSteps {
 
 	@Then("^enter all the details \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void enter_all_the_details_and_and_and(String firstname, String lastname, String email, String phone) {
+	    driver.findElement(By.xpath("//input[@id = 'lead_first_name']")).sendKeys(firstname);
+	    driver.findElement(By.xpath("//input[@id = 'lead_last_name']")).sendKeys(lastname);
+	    driver.findElement(By.xpath("//input[@id = 'lead_email']")).sendKeys(email);
+	    driver.findElement(By.xpath("//input[@id = 'lead_phone']")).sendKeys(phone);
 	    
 	}
 
 	@Then("^clicks on create lead button$")
-	public void clicks_on_create_lead_button() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	public void clicks_on_create_lead_button() {
+	    driver.findElement(By.xpath("//div[@class = 'buttonbar']//input")).click();
 	}
 
 	@Then("^verify created lead$")
-	public void verify_created_lead() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	public void verify_created_lead() {
+		SoftAssert checkAssert = new SoftAssert();
+	    WebElement lead = driver.findElement(By.xpath("//div[@class = 'list']"));
+	    checkAssert.assertEquals(lead.getText(), "Adam", "Adam is created");
 	}
 
 }

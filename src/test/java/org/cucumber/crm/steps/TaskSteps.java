@@ -143,5 +143,4 @@ public class TaskSteps {
 	public void verify_user_is_on_create_lead_page() {
 		driver.findElement(By.xpath("//div[contains(text(), 'Lead Statuses')]"));
 	}
-	
 }
