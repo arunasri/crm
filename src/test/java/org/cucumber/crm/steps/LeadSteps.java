@@ -62,10 +62,10 @@ public class LeadSteps {
 
 	@Then("^enter all the details \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void enter_all_the_details_and_and_and(String firstname, String lastname, String email, String phone) {
-	    driver.findElement(By.xpath("//input[@id = 'lead_first_name']")).sendKeys(firstname);
-	    driver.findElement(By.xpath("//input[@id = 'lead_last_name']")).sendKeys(lastname);
-	    driver.findElement(By.xpath("//input[@id = 'lead_email']")).sendKeys(email);
-	    driver.findElement(By.xpath("//input[@id = 'lead_phone']")).sendKeys(phone);
+	    driver.findElement(By.id("lead_first_name")).sendKeys(firstname);
+	    driver.findElement(By.xpath("lead_last_name")).sendKeys(lastname);
+	    driver.findElement(By.xpath("lead_email")).sendKeys(email);
+	    driver.findElement(By.xpath("lead_phone")).sendKeys(phone);
 	    
 	}
 
