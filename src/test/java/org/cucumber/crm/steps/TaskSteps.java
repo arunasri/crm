@@ -6,12 +6,14 @@ import java.net.URL;
 import org.cucumber.crm.po.LoginPagePO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -142,5 +144,39 @@ public class TaskSteps {
 	@Then("^Verify user is on Create Lead page$")
 	public void verify_user_is_on_create_lead_page() {
 		driver.findElement(By.xpath("//div[contains(text(), 'Lead Statuses')]"));
+	}
+	
+	//Leads creating
+	@Given("^user should logged in as admin user$")
+	public void user_should_logged_in_as_admin_user() {
+		LoginPagePO loginPO = new LoginPagePO(driver);
+		loginPO.login("george", "george");
+	}
+
+
+	@Then("^user clicks on create Lead link$")
+	public void user_clicks_on_create_Lead_link() {
+		driver.findElement(By.partialLinkText("Create Lead")).click();
+	}
+
+	@Then("^enter all the details$")
+	public void enter_all_the_details_and_and_and() {
+	    driver.findElement(By.id("lead_first_name")).sendKeys("Adam");
+	    driver.findElement(By.id("lead_last_name")).sendKeys("vim");
+	    driver.findElement(By.id("lead_email")).sendKeys("test123@gmail.com");
+	    driver.findElement(By.id("lead_phone")).sendKeys("1112223333");
+	    
+	}
+
+	@Then("^clicks on create lead button$")
+	public void clicks_on_create_lead_button() {
+	    driver.findElement(By.xpath("//div[@class = 'buttonbar']//input")).click();
+	}
+
+	@Then("^verify created lead$")
+	public void verify_created_lead() {
+		SoftAssert checkAssert = new SoftAssert();
+	    WebElement lead = driver.findElement(By.xpath("//div[@class = 'list']"));
+	    checkAssert.assertEquals(lead.getText(), "Adam", "Adam is created");
 	}
 }

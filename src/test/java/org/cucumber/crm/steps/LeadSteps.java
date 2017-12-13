@@ -22,7 +22,7 @@ import cucumber.api.java.en.When;
 public class LeadSteps {
 	WebDriver driver;
 	String seleniumGridURL = System.getProperty("SELENIUM_GRID");
-	String baseURL = System.getProperty("WEBSITE_URL");
+	String baseURL = System.getProperty(" ");
 	
 	@Before
 	public void initDriver() throws MalformedURLException {
@@ -60,12 +60,12 @@ public class LeadSteps {
 		driver.findElement(By.partialLinkText("Create Lead")).click();
 	}
 
-	@Then("^enter all the details \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
-	public void enter_all_the_details_and_and_and(String firstname, String lastname, String email, String phone) {
-	    driver.findElement(By.id("lead_first_name")).sendKeys(firstname);
-	    driver.findElement(By.xpath("lead_last_name")).sendKeys(lastname);
-	    driver.findElement(By.xpath("lead_email")).sendKeys(email);
-	    driver.findElement(By.xpath("lead_phone")).sendKeys(phone);
+	@Then("^enter all the details$")
+	public void enter_all_the_details_and_and_and() {
+	    driver.findElement(By.id("lead_first_name")).sendKeys("Adam");
+	    driver.findElement(By.id("lead_last_name")).sendKeys("vim");
+	    driver.findElement(By.id("lead_email")).sendKeys("test123@gmail.com");
+	    driver.findElement(By.id("lead_phone")).sendKeys("1112223333");
 	    
 	}
 
