@@ -72,7 +72,7 @@ public class TaskSteps {
 	@Then("^User should see Aaron Assembler$")
 	public void user_should_see_Aaron_Assembler()  {
 		
-}
+	}
 
 	@When("^User clicks on Accounts tab$")
 	public void user_clicks_on_Accounts_tab() {
@@ -141,7 +141,7 @@ public class TaskSteps {
 	}
 	@Then("^Verify user is on Create Lead page$")
 	public void verify_user_is_on_create_lead_page() {
-		driver.findElement(By.id("//div[contains(text(), 'Lead Statuses')]"));
+		driver.findElement(By.xpath("//div[contains(text(), 'Lead Statuses')]"));
 	}
 	
 }
