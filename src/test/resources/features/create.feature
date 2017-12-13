@@ -66,12 +66,12 @@ Scenario: Admin user ability to create leads
 	
 @endtoendtest
 Scenario: Create lead and verify created lead
-	Given user should logged in as admin user
-	When user clicks on Leads tab
-	Then user clicks on create Lead link
-	Then enter all the details
-	Then clicks on create lead button
-	Then verify created lead
+	Given User should logged in as admin user
+	When User clicks on Leads tab
+	Then User clicks on create Lead link
+	And enter all the details
+	And clicks on create lead button
+	And verify created lead
 	
 
 	

@@ -2,21 +2,22 @@ package org.cucumber.crm.steps;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import org.cucumber.crm.po.LoginPagePO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver.Timeouts;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -134,7 +135,7 @@ public class TaskSteps {
 	}
 	@Then("^Verify user is on create campaign page$")
 	public void verify_user_is_on_create_campaign_page() {
-	   driver.findElement(By.xpath("//div[contains(text(), 'Name:')]"));
+	   //driver.findElement(By.xpath("//div[contains(text(), 'Name:')]"));
 	}
 	//Create Leads
 	@Then("^User clicks on create Lead link$")
@@ -147,33 +148,23 @@ public class TaskSteps {
 	}
 	
 	//Leads creating
-	@Given("^user should logged in as admin user$")
-	public void user_should_logged_in_as_admin_user() {
-		LoginPagePO loginPO = new LoginPagePO(driver);
-		loginPO.login("george", "george");
+
+	@And("^enter all the details$")
+	public void enter_all_the_details() {
+		Timeouts timeouts = driver.manage().timeouts();
+		timeouts.implicitlyWait(5, TimeUnit.SECONDS);
+	    driver.findElement(By.xpath("//input[@id = 'lead_first_name']")).sendKeys("Adam");
+	    driver.findElement(By.xpath("//input[@id = 'lead_last_name']")).sendKeys("vim");
+	    driver.findElement(By.xpath("//input[@id = 'lead_email']")).sendKeys("test123@gmail.com");
+	    driver.findElement(By.xpath("//input[@id = 'lead_phone']")).sendKeys("1112223333");
 	}
 
-
-	@Then("^user clicks on create Lead link$")
-	public void user_clicks_on_create_Lead_link() {
-		driver.findElement(By.partialLinkText("Create Lead")).click();
-	}
-
-	@Then("^enter all the details$")
-	public void enter_all_the_details_and_and_and() {
-	    driver.findElement(By.id("lead_first_name")).sendKeys("Adam");
-	    driver.findElement(By.id("lead_last_name")).sendKeys("vim");
-	    driver.findElement(By.id("lead_email")).sendKeys("test123@gmail.com");
-	    driver.findElement(By.id("lead_phone")).sendKeys("1112223333");
-	    
-	}
-
-	@Then("^clicks on create lead button$")
+	@And("^clicks on create lead button$")
 	public void clicks_on_create_lead_button() {
 	    driver.findElement(By.xpath("//div[@class = 'buttonbar']//input")).click();
 	}
 
-	@Then("^verify created lead$")
+	@And("^verify created lead$")
 	public void verify_created_lead() {
 		SoftAssert checkAssert = new SoftAssert();
 	    WebElement lead = driver.findElement(By.xpath("//div[@class = 'list']"));
