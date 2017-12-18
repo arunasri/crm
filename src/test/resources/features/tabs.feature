@@ -1,5 +1,5 @@
 @task
-Feature: Create accounts
+Feature: Create all tabs available in Fat Free CRM website
 @newtest
 Scenario Outline: User able to create account
 	Given user should logged in as admin
@@ -41,3 +41,15 @@ Scenario Outline: Create Contact page
 	| firstname | lastname    | email           | phone      |  account  |   assignto       |
 	| Emma      | jones       | test1@gmail.com | 1112223333 |           |  Aaron Assembler |
 	| David     | williams    | test2@gmail.com | 4443332222 |           | Ben Bootloader   |
+	
+@newopportunity
+Scenario Outline: Create Opportunity page
+	Given user should be logged in 
+	When user clicks on opportunities tab and clicks on create opportunity link
+	And user should enter "<name>", "<stage>", "<closedate>", "<probability>", "<amount>", "<discount>", "<account>", "<assignedto>", "<campaign>"
+	Then verify new opportunity with "<name>" created
+	Examples:
+	| name   | stage        | closedate   | probability | amount | discount | account | assignedto      | campaign                |
+	| Dave   | Presentation | 2017-12-20  | 50          | 1000   |  2       | dave    | George Globals  | Be all that you can be  |
+	| Rachel | Final Review | 2017-12-25  | 70          | 2000   |  3       | rachel  | Frank Formatter | Because I'm worth it    |
+	

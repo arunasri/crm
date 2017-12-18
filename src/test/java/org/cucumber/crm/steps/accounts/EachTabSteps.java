@@ -25,6 +25,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.openqa.selenium.WebElement;
 import org.testng.asserts.SoftAssert;
 
 import cucumber.api.java.After;
@@ -33,10 +34,12 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class AccountsSteps {
+public class EachTabSteps {
 	WebDriver driver;
 	String seleniumGridURL = System.getProperty("SELENIUM_GRID");
 	String baseURL = System.getProperty("WEBSITE_URL");
+	String username = System.getenv("USERNAME");
+	String password = System.getenv("PASSWORD");
 
 	@Before
 	public void initDriver() throws MalformedURLException {
@@ -128,7 +131,7 @@ public class AccountsSteps {
 	@Given("^user should be logged in$")
 	public void user_should_be_logged_in() {
 		LoginPagePO loginPO = new LoginPagePO(driver);
-		loginPO.login("heather", "heather");
+		loginPO.login(username, password);
 	}
 
 	@When("^user clicks on task tab and clicks on create task link$")
@@ -236,6 +239,30 @@ public class AccountsSteps {
 		searchResult.sendKeys(assignto);
 		createcontact.createContactButton.click();
 		SeleniumHelpers.highlightElement(this.driver, createcontact.createContactButton);
+	}
+	
+	@When("^user clicks on opportunities tab and clicks on create opportunity link$")
+	public void user_clicks_on_opportunities_tab_and_clicks_on_create_opportunity_link() {
+		WebElement opportunityTab = driver.findElement(By.partialLinkText("Opportunities"));
+		SeleniumHelpers.highlightElement(this.driver, opportunityTab);
+		opportunityTab.click();
+		WebElement createOpportunityLink = driver.findElement(By.partialLinkText("Create Opportunity"));		
+		SeleniumHelpers.highlightElement(this.driver, createOpportunityLink);
+		createOpportunityLink.click();
+		WebDriverWait waitCreateOpportunity = new WebDriverWait(driver,1000);
+		waitCreateOpportunity.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Name:')]")));
+	
+	//	selenium not found 1. 
+	}
+
+	@When("^user should enter \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
+	public void user_should_enter(String name, String stage, String closedate, String probability, String amount, String discount, String account, String assignedto, String campaign) {
+
+	}
+
+	@Then("^verify new opportunity with \"([^\"]*)\" created$")
+	public void verify_new_opportunity_with_created(String arg1)  {
+
 	}
 
 }
