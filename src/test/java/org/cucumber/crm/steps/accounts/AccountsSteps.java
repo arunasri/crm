@@ -200,12 +200,17 @@ public class AccountsSteps {
 		verifyCreateConatctElements.assertNotNull(createcontact.firstnameLabel, "Firstname label is not present");
 		SeleniumHelpers.highlightElement(this.driver, createcontact.firstnameLabel);		
 		verifyCreateConatctElements.assertNotNull(createcontact.lastnameLabel, "Lastname label is not present");
+		SeleniumHelpers.highlightElement(this.driver, createcontact.lastnameLabel);
 		verifyCreateConatctElements.assertNotNull(createcontact.emailLabel, "Email label is not present");
+		SeleniumHelpers.highlightElement(this.driver, createcontact.emailLabel);
 		verifyCreateConatctElements.assertNotNull(createcontact.phoneLabel, "Phone label is not present");
+		SeleniumHelpers.highlightElement(this.driver, createcontact.phoneLabel);
 		verifyCreateConatctElements.assertNotNull(createcontact.accountLabel, "Account label is not present");
+		SeleniumHelpers.highlightElement(this.driver, createcontact.accountLabel);
 		verifyCreateConatctElements.assertNotNull(createcontact.assignedToLabel, "Assignto label is not present");
-		verifyCreateConatctElements.assertNotNull(createcontact.selectExistingLabel,
-				"select existing label is not present");
+		SeleniumHelpers.highlightElement(this.driver, createcontact.assignedToLabel);
+		verifyCreateConatctElements.assertNotNull(createcontact.selectExistingLabel, "select existing label is not present");
+		SeleniumHelpers.highlightElement(this.driver, createcontact.selectExistingLabel);
 
 	}
 
@@ -214,16 +219,23 @@ public class AccountsSteps {
 			String account, String assignto) {
 		CreateContactPO createcontact = new CreateContactPO(this.driver);
 		createcontact.firstnameTextboxField.sendKeys(firstname);
+		SeleniumHelpers.highlightElement(this.driver, createcontact.firstnameTextboxField);
 		createcontact.lastnameTextboxField.sendKeys(lastname);
+		SeleniumHelpers.highlightElement(this.driver, createcontact.lastnameTextboxField);
 		createcontact.emailTextboxField.sendKeys(email);
+		SeleniumHelpers.highlightElement(this.driver, createcontact.emailTextboxField);
 		createcontact.phoneTextboxField.sendKeys(phone);
+		SeleniumHelpers.highlightElement(this.driver, createcontact.phoneTextboxField);
 		createcontact.accountAndSelectExistingTextboxField.sendKeys(account);
+		SeleniumHelpers.highlightElement(this.driver, createcontact.accountAndSelectExistingTextboxField);
 		createcontact.assignedToTextboxField.click();
+		SeleniumHelpers.highlightElement(this.driver, createcontact.assignedToTextboxField);
 		WebDriverWait wait = new WebDriverWait(this.driver, 1000);
 		WebElement searchResult = wait.until(
 				ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class = 'select2-search__field']")));
 		searchResult.sendKeys(assignto);
 		createcontact.createContactButton.click();
+		SeleniumHelpers.highlightElement(this.driver, createcontact.createContactButton);
 	}
 
 }
