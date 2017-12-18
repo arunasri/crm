@@ -1,3 +1,4 @@
+@task 
 Feature: Create tasks 
 @admin 
 Scenario: Admin user ability to add tasks 
@@ -62,7 +63,7 @@ Scenario: Admin user ability to create leads
 	When User clicks on Leads tab
 	And User should see the Create Leads link
 	Then User clicks on create Lead link
-	Then Verify user is on Create Lead page
+	Then Verify user is on Create Lead page 
 	
 @endtoendtest
 Scenario: Create lead and verify created lead
@@ -72,13 +73,3 @@ Scenario: Create lead and verify created lead
 	And enter all the details
 	And clicks on create lead button
 	And verify created lead
-	
-
-	
-	
-
-
-
-
-	
-	

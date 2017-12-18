@@ -1,4 +1,4 @@
-package org.cucumber.crm.steps;
+package org.cucumber.crm.steps.tasks;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -39,7 +39,6 @@ public class TaskSteps {
 			this.driver = new RemoteWebDriver(new URL(seleniumGridURL), capabilities);
 		}
 		this.driver.get(baseURL);
-
 	}
 
 	@After
@@ -153,6 +152,8 @@ public class TaskSteps {
 	public void enter_all_the_details() {
 		Timeouts timeouts = driver.manage().timeouts();
 		timeouts.implicitlyWait(5, TimeUnit.SECONDS);
+		
+		
 	    driver.findElement(By.xpath("//input[@id = 'lead_first_name']")).sendKeys("Adam");
 	    driver.findElement(By.xpath("//input[@id = 'lead_last_name']")).sendKeys("vim");
 	    driver.findElement(By.xpath("//input[@id = 'lead_email']")).sendKeys("test123@gmail.com");

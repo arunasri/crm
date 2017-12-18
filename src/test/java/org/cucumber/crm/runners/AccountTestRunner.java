@@ -9,10 +9,10 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.testng.CucumberFeatureWrapper;
 import cucumber.api.testng.TestNGCucumberRunner;
 
-@CucumberOptions(features = "src/test/resources/features", glue = { "classpath:" }, tags = { "~@Ignore" }, format = {
+@CucumberOptions(features = "src/test/resources/features/accounts.feature", glue = { "classpath:org/cucumber/crm/steps/accounts" }, tags = { "~@Ignore" }, format = {
 		"pretty", "html:target/cucumber-reports/cucumber-pretty",
 		"json:target/cucumber-reports/CucumberTestReport.json", "rerun:target/cucumber-reports/rerun.txt" })
-public class TestRunner {
+public class AccountTestRunner {
 	private TestNGCucumberRunner testNGCucumberRunner;
 
 	@BeforeClass(alwaysRun = true)
