@@ -1,6 +1,5 @@
 package org.cucumber.crm.po;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,13 +33,14 @@ public class CreateContactPO {
 	public WebElement accountAndSelectExistingTextboxField;
 	@FindBy(how = How.XPATH, using = "//a[contains(text(), 'select existing')]")
 	public WebElement selectExistingLabel;
+	
 	@FindBy(how = How.XPATH, using = "//div[contains(text(), 'Assigned to:')]")
 	public WebElement assignedToLabel;
+	
 	@FindBy(how = How.XPATH, using = "//span[@id = 'select2-contact_assigned_to-container']")
 	public WebElement assignedToTextboxField;
+
 	@FindBy(how = How.XPATH, using = "//input[@value = 'Create Contact']")
 	public WebElement createContactButton;
 
-	
-	
 }

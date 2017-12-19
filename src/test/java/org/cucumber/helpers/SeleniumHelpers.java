@@ -20,7 +20,7 @@ public class SeleniumHelpers {
 		}
 	}
 
-	public static void takeScreenshot(WebDriver driver, String fileName) throws IOException {
+	public void takeScreenshot(WebDriver driver, String fileName) throws IOException {
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(source, new File(fileName + ".png"));

@@ -1,19 +1,15 @@
 package org.cucumber.crm.steps.accounts;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.apache.commons.io.FileUtils;
 import org.cucumber.crm.po.CreateContactPO;
+import org.cucumber.crm.po.CreateOpportunityPO;
 import org.cucumber.crm.po.CreateTaskPO;
 import org.cucumber.crm.po.LoginPagePO;
 import org.cucumber.helpers.SeleniumHelpers;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,7 +21,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.openqa.selenium.WebElement;
 import org.testng.asserts.SoftAssert;
 
 import cucumber.api.java.After;
@@ -187,8 +182,11 @@ public class EachTabSteps {
 		selectCategory.selectByVisibleText(category);
 		// Click Create button
 		createTaskPO.createButton.click();
-		SeleniumHelpers.takeScreenshot(this.driver, name + due + assignto + category);
+		//SeleniumHelpers.takeScreenshot(this.driver, name + due + assignto + category);
+		SeleniumHelpers screenshot = new SeleniumHelpers(); 
+	
 	}
+	
 
 	// Create Contact
 	@When("^user clicks on contacts tab and clicks on create contacts link$")
@@ -257,7 +255,14 @@ public class EachTabSteps {
 
 	@When("^user should enter \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
 	public void user_should_enter(String name, String stage, String closedate, String probability, String amount, String discount, String account, String assignedto, String campaign) {
-
+		CreateOpportunityPO createOpportunity = new CreateOpportunityPO(driver);
+		SeleniumHelpers.highlightElement(this.driver, createOpportunity.nameLabel);
+		createOpportunity.nameTextboxField.sendKeys(name);
+		SeleniumHelpers.highlightElement(this.driver, createOpportunity.stageLabel);
+		Select stagedropdown = new Select(createOpportunity.stageDropdownfield);
+		stagedropdown.selectByVisibleText(stage);
+		
+		
 	}
 
 	@Then("^verify new opportunity with \"([^\"]*)\" created$")
