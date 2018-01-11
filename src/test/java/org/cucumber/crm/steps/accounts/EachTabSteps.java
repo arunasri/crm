@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.cucumber.crm.po.BasePO;
 import org.cucumber.crm.po.CreateContactPO;
 import org.cucumber.crm.po.CreateOpportunityPO;
 import org.cucumber.crm.po.CreateTaskPO;
+import org.cucumber.crm.po.DashboardPO;
 import org.cucumber.crm.po.LoginPagePO;
 import org.cucumber.helpers.SeleniumHelpers;
 import org.openqa.selenium.By;
@@ -31,10 +33,10 @@ import cucumber.api.java.en.When;
 
 public class EachTabSteps {
 	WebDriver driver;
-	String seleniumGridURL = System.getProperty("SELENIUM_GRID");
-	String baseURL = System.getProperty("WEBSITE_URL");
-	String username = System.getenv("USERNAME");
-	String password = System.getenv("PASSWORD");
+	final String seleniumGridURL = System.getProperty("SELENIUM_GRID");
+	final String baseURL = System.getProperty("WEBSITE_URL");
+	final String username = System.getenv("LOGIN");
+	final String password = System.getenv("PASSWORD");
 
 	@Before
 	public void initDriver() throws MalformedURLException {
@@ -59,18 +61,19 @@ public class EachTabSteps {
 	public void user_should_logged_in_as_admin() {
 		LoginPagePO loginPO = new LoginPagePO(driver);
 		loginPO.login("george", "george");
+
 	}
 
 	@When("^user clicks on accounts tab$")
 	public void user_clicks_on_accounts_tab() {
-		driver.findElement(By.partialLinkText("Accounts")).click();
+		DashboardPO accounttab = new DashboardPO(this.driver);
+		accounttab.openAccountTab();
 	}
 
 	@Then("^user clicks on create account link$")
 	public void user_clicks_on_create_account_link() {
-		driver.findElement(By.partialLinkText("Create Account")).click();
-		WebDriverWait wait = new WebDriverWait(driver, 500);
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(),'Tags:')]")));
+		DashboardPO createAccountLink = new DashboardPO(this.driver);
+		createAccountLink.createAccountLink();
 	}
 
 	@Then("^enter all the details \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
@@ -83,7 +86,6 @@ public class EachTabSteps {
 		action.build().perform();
 		WebElement accountCategory = driver.findElement(By.xpath("//select[@id = 'account_category']"));
 		accountCategory.sendKeys(category);
-
 		SoftAssert verifies = new SoftAssert();
 		verifies.assertTrue(accountCategory.isDisplayed());
 		verifies.assertEquals(accountCategory.getAttribute("id"), "account_category");
@@ -94,13 +96,14 @@ public class EachTabSteps {
 
 	@Then("^clicks on create account button$")
 	public void clicks_on_create_account_button() {
-		driver.findElement(By.xpath("//input[@value = 'Create Account']")).click();
+		DashboardPO accountButton = new DashboardPO(driver);
+		accountButton.clickAccountLeadButton();
 	}
 
 	@Then("^verify created account user details$")
 	public void verify_created_account_user_details() {
-		//SoftAssert verifies = new SoftAssert();
-		//verifies.assertNotNull(driver.findElement(By.xpath("//li[contains(text(), 'account_')]")));
+		 SoftAssert verifies = new SoftAssert();
+		 verifies.assertNotNull(driver.findElement(By.xpath("//li[contains(text(),'account_')]")));
 	}
 
 	// assertions
@@ -126,16 +129,14 @@ public class EachTabSteps {
 	@Given("^user should be logged in$")
 	public void user_should_be_logged_in() {
 		LoginPagePO loginPO = new LoginPagePO(driver);
+		System.out.println(password);
 		loginPO.login(username, password);
 	}
 
 	@When("^user clicks on task tab and clicks on create task link$")
 	public void user_clicks_on_task_tab_and_clicks_on_create_task_link() {
-		driver.findElement(By.partialLinkText("Tasks")).click();
-		driver.findElement(By.partialLinkText("Create Task")).click();
-
-		WebDriverWait wait = new WebDriverWait(driver, 1000);
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[@id = 'task_name']")));
+		DashboardPO dashboardPO = new DashboardPO(this.driver);
+		dashboardPO.createTaskLink();
 	}
 
 	@Then("^user should verify all the elements present in create task page$")
@@ -169,37 +170,32 @@ public class EachTabSteps {
 		selectDue.selectByVisibleText(due);
 		// Select Assignto
 		createTaskPO.assigntoDropDownField.click();
-		WebDriverWait wait = new WebDriverWait(driver, 1000);
-		WebElement searchResult = wait.until(
-				ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class = 'select2-search__field']")));
+		WebElement searchResult = SeleniumHelpers.waitElement(driver, By.xpath("//input[@class = 'select2-search__field']"));
 		searchResult.sendKeys(assignto);
-		wait = new WebDriverWait(driver, 1000);
-		WebElement searchResultSelector = wait.until(
-				ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(), '" + assignto + "')]")));
+		WebElement searchResultSelector = SeleniumHelpers.waitElement(driver, By.xpath("//li[contains(text(), '" + assignto + "')]"));
 		searchResultSelector.click();
+
 		// Select Category
 		Select selectCategory = new Select(createTaskPO.categoryDropDownField);
 		selectCategory.selectByVisibleText(category);
 		// Click Create button
 		createTaskPO.createButton.click();
-		//SeleniumHelpers.takeScreenshot(this.driver, name + due + assignto + category);
-		SeleniumHelpers screenshot = new SeleniumHelpers(); 
-	
+		// SeleniumHelpers.takeScreenshot(this.driver, name + due + assignto +
+		// category);
+		SeleniumHelpers screenshot = new SeleniumHelpers();
+
 	}
-	
 
 	// Create Contact
 	@When("^user clicks on contacts tab and clicks on create contacts link$")
 	public void user_clicks_on_contacts_tab_and_clicks_on_create_contacts_link() {
-		driver.findElement(By.partialLinkText("Contacts")).click();
-		driver.findElement(By.partialLinkText("Create Contact")).click();
-		WebDriverWait waitContact = new WebDriverWait(driver, 1000);
-		waitContact.until(ExpectedConditions
-				.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'First name:')]")));
+		DashboardPO contacts = new DashboardPO(this.driver);
+		contacts.openContactTab();
+		contacts.createContactLink();
 		CreateContactPO createcontact = new CreateContactPO(driver);
 		SoftAssert verifyCreateConatctElements = new SoftAssert();
 		verifyCreateConatctElements.assertNotNull(createcontact.firstnameLabel, "Firstname label is not present");
-		SeleniumHelpers.highlightElement(this.driver, createcontact.firstnameLabel);		
+		SeleniumHelpers.highlightElement(this.driver, createcontact.firstnameLabel);
 		verifyCreateConatctElements.assertNotNull(createcontact.lastnameLabel, "Lastname label is not present");
 		SeleniumHelpers.highlightElement(this.driver, createcontact.lastnameLabel);
 		verifyCreateConatctElements.assertNotNull(createcontact.emailLabel, "Email label is not present");
@@ -210,7 +206,8 @@ public class EachTabSteps {
 		SeleniumHelpers.highlightElement(this.driver, createcontact.accountLabel);
 		verifyCreateConatctElements.assertNotNull(createcontact.assignedToLabel, "Assignto label is not present");
 		SeleniumHelpers.highlightElement(this.driver, createcontact.assignedToLabel);
-		verifyCreateConatctElements.assertNotNull(createcontact.selectExistingLabel, "select existing label is not present");
+		verifyCreateConatctElements.assertNotNull(createcontact.selectExistingLabel,
+				"select existing label is not present");
 		SeleniumHelpers.highlightElement(this.driver, createcontact.selectExistingLabel);
 
 	}
@@ -231,43 +228,71 @@ public class EachTabSteps {
 		SeleniumHelpers.highlightElement(this.driver, createcontact.accountAndSelectExistingTextboxField);
 		createcontact.assignedToTextboxField.click();
 		SeleniumHelpers.highlightElement(this.driver, createcontact.assignedToTextboxField);
-		WebDriverWait wait = new WebDriverWait(this.driver, 1000);
-		WebElement searchResult = wait.until(
-				ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class = 'select2-search__field']")));
+		WebElement searchResult = SeleniumHelpers.waitElement(driver,
+				By.xpath("//input[@class = 'select2-search__field']"));
 		searchResult.sendKeys(assignto);
 		createcontact.createContactButton.click();
 		SeleniumHelpers.highlightElement(this.driver, createcontact.createContactButton);
 	}
-	
+
 	@When("^user clicks on opportunities tab and clicks on create opportunity link$")
 	public void user_clicks_on_opportunities_tab_and_clicks_on_create_opportunity_link() {
-		WebElement opportunityTab = driver.findElement(By.partialLinkText("Opportunities"));
-		SeleniumHelpers.highlightElement(this.driver, opportunityTab);
-		opportunityTab.click();
-		WebElement createOpportunityLink = driver.findElement(By.partialLinkText("Create Opportunity"));		
+		DashboardPO opportunityTab = new DashboardPO(this.driver);
+		opportunityTab.openOpportunityTab();
+		WebElement createOpportunityLink = driver.findElement(By.partialLinkText("Create Opportunity"));
 		SeleniumHelpers.highlightElement(this.driver, createOpportunityLink);
 		createOpportunityLink.click();
-		WebDriverWait waitCreateOpportunity = new WebDriverWait(driver,1000);
-		waitCreateOpportunity.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Name:')]")));
-	
-	//	selenium not found 1. 
+		SeleniumHelpers.waitElement(driver, By.xpath("//div[contains(text(), 'Name:')]"));
 	}
 
 	@When("^user should enter \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
-	public void user_should_enter(String name, String stage, String closedate, String probability, String amount, String discount, String account, String assignedto, String campaign) {
+	public void user_should_enter(String name, String stage, String closedate, String probability, String amount,
+			String discount, String account, String assignedto, String campaign) {
+		// Creating opportunity object
 		CreateOpportunityPO createOpportunity = new CreateOpportunityPO(driver);
+		// Verify label and enter name
 		SeleniumHelpers.highlightElement(this.driver, createOpportunity.nameLabel);
 		createOpportunity.nameTextboxField.sendKeys(name);
+		// verify label and select stage
 		SeleniumHelpers.highlightElement(this.driver, createOpportunity.stageLabel);
 		Select stagedropdown = new Select(createOpportunity.stageDropdownfield);
 		stagedropdown.selectByVisibleText(stage);
-		
-		
+		// verify label and select close date
+		SeleniumHelpers.highlightElement(this.driver, createOpportunity.closeDateLabel);
+		createOpportunity.closeDatePicker.sendKeys(closedate);
+		// verify label and enter probability
+		SeleniumHelpers.highlightElement(this.driver, createOpportunity.probabilityLabel);
+		createOpportunity.probabilityTextboxField.sendKeys(probability);
+		// verify label and enter amount
+		SeleniumHelpers.highlightElement(this.driver, createOpportunity.amountLabel);
+		createOpportunity.amountTextboxField.sendKeys(amount);
+		// verify label and enter discount
+		SeleniumHelpers.highlightElement(this.driver, createOpportunity.discountLabel);
+		createOpportunity.dicountTextboxField.sendKeys(discount);
+		// verify label and enter account
+		SeleniumHelpers.highlightElement(this.driver, createOpportunity.accountLabel);
+		createOpportunity.accountAndExistingTextboxField.sendKeys(account);
+		// verify label and enter assignto
+		SeleniumHelpers.highlightElement(this.driver, createOpportunity.assignedtoLabel);
+		WebElement searchResult = SeleniumHelpers.waitElement(driver,
+				By.xpath("//input[@class = 'select2-search__field']"));
+		searchResult.sendKeys(assignedto);
+		// verify label and enter campaign
+		WebDriverWait campaignwait = new WebDriverWait(this.driver, 1000);
+		// WebElement campaignResult = wait.until(
+		// ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type =
+		// 'text']")));
+		// campaignResult.sendKeys(campaign);
+		SeleniumHelpers.highlightElement(this.driver, createOpportunity.campaignLabel);
+		// createOpportunity.campaignDropDownField.sendKeys(campaign);
+		createOpportunity.createOpportunityButton.click();
 	}
 
 	@Then("^verify new opportunity with \"([^\"]*)\" created$")
-	public void verify_new_opportunity_with_created(String arg1)  {
-
+	public void verify_new_opportunity_with_created(String name) {
+		SeleniumHelpers.waitElement(driver, By.xpath("//div[@id = 'opportunities']"));
+		SoftAssert verifyCreatedOpportunity = new SoftAssert();
+		verifyCreatedOpportunity.assertNotNull(name, "Name is not present");
 	}
 
 }

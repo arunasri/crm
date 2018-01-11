@@ -12,13 +12,13 @@ public class LoginPagePO {
 	}
 
 	@FindBy(how = How.ID, using = "authentication_username")
-	public WebElement username;
+	private WebElement username;
 
 	@FindBy(how = How.ID, using = "authentication_password")
-	public WebElement passwd;
+	private WebElement passwd;
 
 	@FindBy(how = How.NAME, using = "commit")
-	public WebElement loginButton;
+	private WebElement loginButton;
 
 	@FindBy(how = How.ID, using = "authentication_remember_me")
 	public WebElement rememberMeCheckBox;
@@ -26,9 +26,12 @@ public class LoginPagePO {
 	@FindBy(how = How.PARTIAL_LINK_TEXT, using = "Forgot Password?")
 	public WebElement forgotPasswordLink;
 
-	public void login(String userName, String passwd) {
+	public void login(String userName, String passWord) {
 		this.username.sendKeys(userName);
-		this.passwd.sendKeys(passwd);
+		this.passwd.sendKeys(passWord);
 		this.loginButton.submit();
 	}
 }
+
+
+

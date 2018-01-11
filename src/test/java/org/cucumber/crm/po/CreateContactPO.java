@@ -6,9 +6,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-public class CreateContactPO {
+public class CreateContactPO extends BasePO {
 	public CreateContactPO(WebDriver driver) {
-		PageFactory.initElements(driver, this);
+		super(driver);
 	}
 
 	@FindBy(how = How.XPATH, using = "//div[contains(text(), 'First name:')]")
@@ -33,14 +33,17 @@ public class CreateContactPO {
 	public WebElement accountAndSelectExistingTextboxField;
 	@FindBy(how = How.XPATH, using = "//a[contains(text(), 'select existing')]")
 	public WebElement selectExistingLabel;
-	
+
 	@FindBy(how = How.XPATH, using = "//div[contains(text(), 'Assigned to:')]")
 	public WebElement assignedToLabel;
-	
+
 	@FindBy(how = How.XPATH, using = "//span[@id = 'select2-contact_assigned_to-container']")
 	public WebElement assignedToTextboxField;
 
 	@FindBy(how = How.XPATH, using = "//input[@value = 'Create Contact']")
 	public WebElement createContactButton;
 
+	public void openCreateContactPO() {
+		
+	}
 }

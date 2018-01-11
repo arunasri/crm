@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import org.cucumber.crm.po.DashboardPO;
 import org.cucumber.crm.po.LoginPagePO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -54,7 +55,9 @@ public class TaskSteps {
 
 	@Given("^I am tasks tab$")
 	public void i_am_tasks_tab() throws Throwable {
-		this.driver.findElement(By.partialLinkText("Tasks")).click();
+		DashboardPO taskTab = new DashboardPO(this.driver);
+		taskTab.openTaskTab();
+		
 	}
 
 	@When("^I create Task$")
@@ -68,7 +71,9 @@ public class TaskSteps {
 	
 	@When("^User clicks on Team tab$")
 	public void user_clicks_on_Team_tab()  {
-	    driver.findElement(By.xpath("//a[contains(text(), 'Team')]")).click();
+		DashboardPO teamTab = new DashboardPO(this.driver);
+		teamTab.openTeamTab();
+	    
 	}
 
 	@Then("^User should see Aaron Assembler$")
@@ -78,8 +83,8 @@ public class TaskSteps {
 
 	@When("^User clicks on Accounts tab$")
 	public void user_clicks_on_Accounts_tab() {
-		driver.findElement(By.partialLinkText("Accounts")).click();
-
+		DashboardPO accountTab = new DashboardPO(this.driver);
+		accountTab.openAccountTab();
 	}
 
 	@Then("^User should see the Create Account link$")
@@ -90,7 +95,8 @@ public class TaskSteps {
 	
 	@When("^User clicks on campaigns tab$")
 	public void user_clicks_on_campaigns_tab() {
-		driver.findElement(By.partialLinkText("Campaigns")).click();
+		DashboardPO campaignTab = new DashboardPO(this.driver);
+		campaignTab.openAccountTab();
 	}
 
 	@Then("^User should see the Create Campaigns link$")
@@ -100,7 +106,8 @@ public class TaskSteps {
 
 	@When("^User clicks on Leads tab$")
 	public void user_clicks_on_Leads_tab() {
-		driver.findElement(By.partialLinkText("Leads")).click();
+		DashboardPO leadTab = new DashboardPO(this.driver);
+		leadTab.openLeadTab();
 	}
 
 	@Then("^User should see the Create Leads link$")
@@ -110,7 +117,8 @@ public class TaskSteps {
 	//Contacts
 	@When("^User clicks on Contacts tab$")
 	public void user_clicks_on_Contacts_tab() {
-		driver.findElement(By.partialLinkText("Contacts")).click();
+		DashboardPO ContactTab = new DashboardPO(this.driver);
+		ContactTab.openContactTab();
 	}
 
 	@Then("^User should see the Create Contacts link$")
@@ -120,7 +128,8 @@ public class TaskSteps {
 	//Opportunities
 	@When("^User clicks on Opportunities tab$")
 	public void user_clicks_on_Opportunities_tab() {
-		driver.findElement(By.partialLinkText("")).click();
+		DashboardPO opportunityTab = new DashboardPO(this.driver);
+		opportunityTab.openOpportunityTab();
 	}
 
 	@Then("^User should see the Create Opportunity link$")
@@ -130,7 +139,8 @@ public class TaskSteps {
 	//Create campaigns
 	@Then("^User clicks on create campaign link$")
 	public void user_clicks_on_create_campaign_link() {
-	   driver.findElement(By.partialLinkText("Create Campaign")).click();
+		DashboardPO campaign = new DashboardPO(this.driver);
+		campaign.createCampaignLink();
 	}
 	@Then("^Verify user is on create campaign page$")
 	public void verify_user_is_on_create_campaign_page() {
@@ -139,7 +149,8 @@ public class TaskSteps {
 	//Create Leads
 	@Then("^User clicks on create Lead link$")
 	public void user_clicks_on_create_lead_link() {
-	   driver.findElement(By.partialLinkText("Create Lead")).click();
+		DashboardPO createLead = new DashboardPO(this.driver);
+		createLead.clickCreateLeadButton();
 	}
 	@Then("^Verify user is on Create Lead page$")
 	public void verify_user_is_on_create_lead_page() {
@@ -162,7 +173,8 @@ public class TaskSteps {
 
 	@And("^clicks on create lead button$")
 	public void clicks_on_create_lead_button() {
-	    driver.findElement(By.xpath("//div[@class = 'buttonbar']//input")).click();
+		DashboardPO leadButton = new DashboardPO(this.driver);
+		leadButton.clickCreateLeadButton();
 	}
 
 	@And("^verify created lead$")
